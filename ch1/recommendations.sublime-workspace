@@ -1,0 +1,427 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"publi",
+				"publicPath"
+			],
+			[
+				"j",
+				"J_history"
+			],
+			[
+				"J",
+				"J_history"
+			],
+			[
+				"yla",
+				"ylabel"
+			],
+			[
+				"value",
+				"valueFreq"
+			],
+			[
+				"highes",
+				"highestVal"
+			],
+			[
+				"high",
+				"highestVal"
+			],
+			[
+				"preg",
+				"pregnum"
+			],
+			[
+				"ind",
+				"indices"
+			],
+			[
+				"max",
+				"maxEndingHere"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"new",
+				"newSubsequence"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"arr",
+				"arr2"
+			],
+			[
+				"inde",
+				"index1"
+			],
+			[
+				"index",
+				"index2"
+			],
+			[
+				"get",
+				"getIntersection"
+			],
+			[
+				"column",
+				"columnCheck"
+			],
+			[
+				"colum",
+				"columnLength"
+			],
+			[
+				"row",
+				"rowLength"
+			],
+			[
+				"game",
+				"gameOver"
+			],
+			[
+				"gam",
+				"gameOver"
+			],
+			[
+				"if",
+				"if	if"
+			],
+			[
+				"col",
+				"columnLength"
+			],
+			[
+				"no",
+				"nodeTest"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"packag",
+				"Package Control: List Packages"
+			],
+			[
+				"ste sty",
+				"Set Syntax: Stylus"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"git",
+				"GitGutter: Compare Against Origin"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"packages",
+				"Package Control: List Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"matla",
+				"Set Syntax: MATLAB"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"ints",
+				"Package Control: Install Package"
+			],
+			[
+				"pacak",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/Python.sublime-settings",
+		"/Users/curtismitchell/Projects/personal_site/README.md",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Users/curtismitchell/Projects/personal_site/public/style.styl",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/GitGutter.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/GitGutter/GitGutter.sublime-settings",
+		"/Users/curtismitchell/.osx",
+		"/Users/curtismitchell/.bashrc",
+		"/Users/curtismitchell/Projects/personal_site/public/index.html",
+		"/Users/curtismitchell/Projects/personal_site/public/about/about_me.html",
+		"/Users/curtismitchell/Projects/personal_site/.gitignore",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/curtismitchell/Projects/.eslintrc",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/HighlightWords/HighlightWords.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/HighlightWords.sublime-settings",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/plotData.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/ex1.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/gradientDescent.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/computeCost.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/warmUpExercise.m",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap02soln.py",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01ex.ipynb",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01soln.py",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01ex.py",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01ex..py",
+		"/Users/curtismitchell/Projects/backbone/todo.js",
+		"/Users/curtismitchell/Projects/backbone/basicBackbone.html",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/nsfg.py",
+		"/Users/curtismitchell/.bash_profile",
+		"/Users/curtismitchell/.profile",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/lib/scramble.js",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/notes.txt",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/index.js",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/lib/hammingCoder.js",
+		"/Users/curtismitchell/Challenge/CurtisCode/TicTacToe.js",
+		"/Users/curtismitchell/Challenge/TicTacToe.js",
+		"/Users/curtismitchell/Documents/node test.js"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 161.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"title",
+			"* ",
+			"gulp",
+			"stylus",
+			"one",
+			"css",
+			"\"",
+			"-1",
+			"3",
+			"J_history",
+			"sqrErrors",
+			"theta",
+			"main",
+			"script",
+			"ReadFemPreg",
+			"print",
+			"maxSoFar",
+			"maxSubSequence",
+			"newSubSequence",
+			"maxSubSequence",
+			"expected",
+			"0",
+			"rowLength",
+			"\n  ",
+			"rowLength",
+			"   ",
+			"-",
+			"gameCheck",
+			"this",
+			"i",
+			"length",
+			"gameOver",
+			"GAMEOVER",
+			"gameOver",
+			"[\"-\", \"-\", \"-\"]",
+			"%s",
+			"-",
+			"console.log"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "recommendations.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"gul",
+				"gulpfile.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 191.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

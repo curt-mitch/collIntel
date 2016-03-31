@@ -1,0 +1,661 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"set",
+				"setdefault"
+			],
+			[
+				"sum2",
+				"sum2Sq"
+			],
+			[
+				"person",
+				"person2"
+			],
+			[
+				"sum",
+				"sum_of_squares"
+			],
+			[
+				"per",
+				"person2"
+			],
+			[
+				"pes",
+				"person1"
+			],
+			[
+				"pers",
+				"person2"
+			],
+			[
+				"publi",
+				"publicPath"
+			],
+			[
+				"j",
+				"J_history"
+			],
+			[
+				"J",
+				"J_history"
+			],
+			[
+				"yla",
+				"ylabel"
+			],
+			[
+				"value",
+				"valueFreq"
+			],
+			[
+				"highes",
+				"highestVal"
+			],
+			[
+				"high",
+				"highestVal"
+			],
+			[
+				"preg",
+				"pregnum"
+			],
+			[
+				"ind",
+				"indices"
+			],
+			[
+				"max",
+				"maxEndingHere"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"new",
+				"newSubsequence"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"arr",
+				"arr2"
+			],
+			[
+				"inde",
+				"index1"
+			],
+			[
+				"index",
+				"index2"
+			],
+			[
+				"get",
+				"getIntersection"
+			],
+			[
+				"column",
+				"columnCheck"
+			],
+			[
+				"colum",
+				"columnLength"
+			],
+			[
+				"row",
+				"rowLength"
+			],
+			[
+				"game",
+				"gameOver"
+			],
+			[
+				"gam",
+				"gameOver"
+			],
+			[
+				"if",
+				"if	if"
+			],
+			[
+				"col",
+				"columnLength"
+			],
+			[
+				"no",
+				"nodeTest"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "# A dictionary of movie critics and their ratings of a small\n# set of movies\ncritics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5,\n'Just My Luck': 3.0, 'Superman Returns': 3.5, 'You, Me and Dupree': 2.5,\n'The Night Listener': 3.0},\n'Gene Seymour': {'Lady in the Water': 3.0, 'Snakes on a Plane': 3.5,\n'Just My Luck': 1.5, 'Superman Returns': 5.0, 'The Night Listener': 3.0,\n'You, Me and Dupree': 3.5},\n'Michael Phillips': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.0,\n'Superman Returns': 3.5, 'The Night Listener': 4.0},\n'Claudia Puig': {'Snakes on a Plane': 3.5, 'Just My Luck': 3.0,\n'The Night Listener': 4.5, 'Superman Returns': 4.0,\n'You, Me and Dupree': 2.5},\n'Mick LaSalle': {'Lady in the Water': 3.0, 'Snakes on a Plane': 4.0,\n'Just My Luck': 2.0, 'Superman Returns': 3.0, 'The Night Listener': 3.0,\n'You, Me and Dupree': 2.0},\n'Jack Matthews': {'Lady in the Water': 3.0, 'Snakes on a Plane': 4.0,\n'The Night Listener': 3.0, 'Superman Returns': 5.0, 'You, Me and Dupree': 3.5},\n'Toby': {'Snakes on a Plane':4.5,'You, Me and Dupree':1.0,'Superman Returns':4.0}}\n\nfrom math import sqrt\n\n# Returns a distance-based similarity score for person1 and person2\ndef sim_distance (prefs, person1, person2):\n  # Get the list of shared_items\n  si = {}\n  for item in prefs[person1]:\n    if item in prefs[person2]:\n      si[item] = 1\n  # if they have no ratings in common, return 0\n  if len(si) == 0: return 0\n\n  # Add up the squares of all the differences\n  sum_of_squares=sum([pow(prefs[person1][item] - prefs[person2][item], 2)\n                      for item in prefs[person1] if item in prefs[person2]])\n\n  return 1 / (1 + sum_of_squares)\n\ndef sim_pearson (prefs, person1, person2):\n  # Get the list of mutually rated items\n  si = {}\n  for item in prefs[person1]:\n    if item in prefs[person2]: si[item] = 1\n\n  # Find the number of elements\n  n = len(si)\n\n  # if there are no ratings in common, return 0\n  if n == 0: return 0\n\n  # Add up all the preferences\n  sum1 = sum([prefs[person1][it] for it in si])\n  sum2 = sum([prefs[person2][it] for it in si])\n\n  # Sum up the squares\n  sum1Sq = sum([pow(prefs[person1][it], 2) for it in si])\n  sum2Sq = sum([pow(prefs[person2][it], 2) for it in si])\n\n  # Sum up the products\n  pSum = sum([prefs[person1][it] * prefs[person2][it] for it in si])\n\n  # Calculate Pearson score\n  num = pSum - (sum1 * sum2 / n)\n  den = sqrt((sum1Sq - pow(sum1, 2) / n) * (sum2Sq - pow(sum2, 2) / n))\n  if den == 0: return 0\n\n  r = num / den\n\n  return r\n\n# Returns the best matches for person from the prefs dictionary\n# Number of results and similarity function are optional params.\ndef topMatches (prefs, person, n=5, similarity=sim_pearson):\n  scores = [(similarity(prefs, person, other), other)\n                    for other in prefs if other != person]\n  # Sort the list so the highest scores appear at the top\n  scores.sort()\n  scores.reverse()\n  return scores[0:n]\n\n# Gets recommendations for a person by using a weighted average\n# of every other user's rankings\ndef getRecommendations(prefs, person, similarity=sim_pearson):\n  totals = {}\n  simSums = {}\n  for other in prefs:\n    # don't compare me to myself\n    if other == person: continue\n    sim = similarity(prefs, person, other)\n\n    # ignore scores of zero or lower\n    if sim <= 0: continue\n    for item in prefs[other]:\n\n      # only score movies I haven't seen yet\n      if item not in prefs[person] or prefs[person][item] == 0:\n        # Similarity * Score\n        totals.setdefault(item, 0)\n        totals[item] += prefs[other][item] * sim\n        # Sum of similarities\n        simSums.setdefault(item, 0)\n        simSums[item] += sim\n\n  # Create the normalized list\n  rankings = [(total / simSums[item], item) for item, total in totals.items()]\n\n  # Return the sorted list\n  rankings.sort()\n  rankings.reverse()\n  return rankings\n\ndef transformPrefs(prefs):\n  result = {}\n  for person in prefs:\n    for ",
+			"file": "Projects/collIntel/ch1/recommendations.py",
+			"file_size": 3847,
+			"file_write_time": 131036962530000000,
+			"settings":
+			{
+				"buffer_size": 3920,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 969,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "inst",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"packag",
+				"Package Control: List Packages"
+			],
+			[
+				"ste sty",
+				"Set Syntax: Stylus"
+			],
+			[
+				"git",
+				"GitGutter: Compare Against Origin"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"packages",
+				"Package Control: List Packages"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"matla",
+				"Set Syntax: MATLAB"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"ints",
+				"Package Control: Install Package"
+			],
+			[
+				"pacak",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/curtismitchell/Projects/collIntel/ch1"
+	],
+	"file_history":
+	[
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/Users/curtismitchell/Projects/collIntel/recommendations.py",
+		"/Users/curtismitchell/Projects/collIntel/.gitignore",
+		"/Users/curtismitchell/Projects/personal_site/README.md",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Users/curtismitchell/Projects/personal_site/public/style.styl",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/GitGutter.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/GitGutter/GitGutter.sublime-settings",
+		"/Users/curtismitchell/.osx",
+		"/Users/curtismitchell/.bashrc",
+		"/Users/curtismitchell/Projects/personal_site/public/index.html",
+		"/Users/curtismitchell/Projects/personal_site/public/about/about_me.html",
+		"/Users/curtismitchell/Projects/personal_site/.gitignore",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/curtismitchell/Projects/.eslintrc",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/HighlightWords/HighlightWords.sublime-settings",
+		"/Users/curtismitchell/Library/Application Support/Sublime Text 3/Packages/User/HighlightWords.sublime-settings",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/plotData.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/ex1.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/gradientDescent.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/computeCost.m",
+		"/Users/curtismitchell/Projects/MLClass/machine-learning-ex1/ex1/warmUpExercise.m",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap02soln.py",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01ex.ipynb",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01soln.py",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01ex.py",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/chap01ex..py",
+		"/Users/curtismitchell/Projects/backbone/todo.js",
+		"/Users/curtismitchell/Projects/backbone/basicBackbone.html",
+		"/Users/curtismitchell/Projects/ThinkStats2/code/nsfg.py",
+		"/Users/curtismitchell/.bash_profile",
+		"/Users/curtismitchell/.profile",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/lib/scramble.js",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/notes.txt",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/index.js",
+		"/Users/curtismitchell/Projects/algoMeetup/HR-Algorithms-Meetup/HammingCoding/lib/hammingCoder.js",
+		"/Users/curtismitchell/Challenge/CurtisCode/TicTacToe.js",
+		"/Users/curtismitchell/Challenge/TicTacToe.js",
+		"/Users/curtismitchell/Documents/node test.js"
+	],
+	"find":
+	{
+		"height": 72.0
+	},
+	"find_in_files":
+	{
+		"height": 161.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"simSums",
+			"sumSums",
+			"ensure_newline_at_eof_on_save",
+			"title",
+			"* ",
+			"gulp",
+			"stylus",
+			"one",
+			"css",
+			"\"",
+			"-1",
+			"3",
+			"J_history",
+			"sqrErrors",
+			"theta",
+			"main",
+			"script",
+			"ReadFemPreg",
+			"print",
+			"maxSoFar",
+			"maxSubSequence",
+			"newSubSequence",
+			"maxSubSequence",
+			"expected",
+			"0",
+			"rowLength",
+			"\n  ",
+			"rowLength",
+			"   ",
+			"-",
+			"gameCheck",
+			"this",
+			"i",
+			"length",
+			"gameOver",
+			"GAMEOVER",
+			"gameOver",
+			"[\"-\", \"-\", \"-\"]",
+			"%s",
+			"-",
+			"console.log"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Projects/collIntel/ch1/recommendations.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3920,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3920,
+								3920
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "collIntel.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"gul",
+				"gulpfile.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 191.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
